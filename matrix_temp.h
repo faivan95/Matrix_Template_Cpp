@@ -45,17 +45,7 @@ public:
         }
     }
 
-    // Check assignment function again
-    // void operator=(size_t row, size_t col)(<T> val) {
-    //     data[row][col] = val;
-    //     //check back
-    //     std::cout << "Data at " << row << " and " << col << " is " << val <<std::endl;
-    // }
-
-    // Populate data fields in matrix
-    // void populate(size_t row, size_t col);
-
-    // Addition
+    // Addition Operation
     Matrix<T> operator+(const Matrix<T>& second) const {
         Matrix<T> result(rows, cols);
         for (size_t i = 0; i < rows; ++i) {
@@ -66,7 +56,7 @@ public:
         return result;
     }
 
-    // Subtraction
+    // Subtraction operation
     Matrix<T> operator-(const Matrix<T>& second) const {
         Matrix<T> result(rows, cols);
         if constexpr (std::is_same<T, std::string>::value) {
@@ -83,7 +73,7 @@ public:
         return result;
     }
 
-    // Multiplication
+    // Multiplication operation
     Matrix<T> operator*(const Matrix<T>& second) const {
         Matrix<T> result(rows, second.getCols());
         if constexpr (std::is_same<T, std::string>::value) {
