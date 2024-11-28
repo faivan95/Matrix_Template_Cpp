@@ -1,8 +1,10 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <type_traits>
 
-bool checkForString(const std::string& str);
+//bool checkForString(const std::string& str);
 
 template <typename T>
 class Matrix {
@@ -33,6 +35,25 @@ public:
 
     size_t getRows() const { return rows; }
     size_t getCols() const { return cols; }
+    
+    //Display matrix data
+    void displayData() {
+        for (size_t i = 0; i < rows; ++i) {
+            for (size_t j = 0; j < cols; ++j) {
+                std::cout << "Data at (" << i << ", " << j << ") is " << data[i][j] << std::endl;
+            }
+        }
+    }
+
+    // Check assignment function again
+    // void operator=(size_t row, size_t col)(<T> val) {
+    //     data[row][col] = val;
+    //     //check back
+    //     std::cout << "Data at " << row << " and " << col << " is " << val <<std::endl;
+    // }
+
+    // Populate data fields in matrix
+    // void populate(size_t row, size_t col);
 
     // Addition
     Matrix<T> operator+(const Matrix<T>& second) const {
@@ -49,7 +70,7 @@ public:
     Matrix<T> operator-(const Matrix<T>& second) const {
         Matrix<T> result(rows, cols);
         if constexpr (std::is_same<T, std::string>::value) {
-            std::cout << "Subtraction operation not possible with string types in matrices!" << std::endl;
+            std::cout << "Subtraction operation is not possible with string types in matrices!" << std::endl;
         }
         else {
             for (size_t i = 0; i < rows; ++i) {
@@ -66,7 +87,7 @@ public:
     Matrix<T> operator*(const Matrix<T>& second) const {
         Matrix<T> result(rows, second.getCols());
         if constexpr (std::is_same<T, std::string>::value) {
-            std::cout << "Multiplication operation not possible with string types in matrices!" << std::endl;
+            std::cout << "Multiplication operation is not possible with string types in matrices!" << std::endl;
             // Matrix<T> result(0, 0);
             // // result.data("Empty");
             // result(0, 0) = "Empty";
@@ -83,12 +104,13 @@ public:
             // }
         }
         else {
-            Matrix<T> result(rows, second.getCols());
+            //Matrix<T> result(rows, second.getCols());
             for (size_t i = 0; i < rows; ++i) {
                 for (size_t j = 0; j < second.getCols(); ++j) {
                     result(i, j) = 0;
                     for (size_t k = 0; k < cols; ++k) {
                         result(i, j) += data[i][k] * second(k, j);
+                        std::cout << data[i][k] << " * " << second(k,j) << " = " << result(i,j) << std::endl;
                     }
                 }
             }
